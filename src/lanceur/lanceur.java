@@ -6,30 +6,29 @@ public class lanceur {
 	
 	public static String dateBuilder[][] = {
 		{"Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Décembre"},
-		{"", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimmanche"}
+		{ "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimmanche"}
 	};
-	public static int jour;
-	public static int mois;
-	public static int numeroJour;	
+	public static int jour; // NB restant apres calcul !
+	public static int mois; // indice numero du moi
+	public static int numeroJour; // valeur entrer par l'utilisateur
 	
 	public static final int MOIS31 = 31; 
 	public static final int MOIS30 = 30;
 	public static int cpt31 = 1;
 	public static int cpt30 = 1;
 	
-	public static int semaineNum = 0;
-	public static int resteNbJour = 0;
-	public static String affiche;
-	
+	public static int semaineNum = 0; //numero de la semaine
+	public static String affiche; // affichage jour de la semaine
+	public static int ctrlAnneeType;
+	public static int anneeType;
+	public static String typeAnnee;
+	public static int annee = 1;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Veuillez taper un numero de jour ?");
 		numeroJour = sc.nextInt();
-		
-		
-		
 		
 		if (numeroJour <= (MOIS31 * cpt31)) mois = 0; // janvier
 		else if (numeroJour <= (MOIS31 * cpt31) + (MOIS30 * cpt30) - 1) mois = 1; // fevrier
@@ -44,36 +43,66 @@ public class lanceur {
 		else if (numeroJour <= (MOIS31 * cpt31) + (MOIS30 * ++cpt30) - 1) mois = 10; // novembre
 		else if (numeroJour <= (MOIS31 * ++cpt31) + (MOIS30 * cpt30) - 1) mois = 11; // decembre
 		
-		//System.out.println("nous seron au mois de : " + dateBuilder[0][mois] + mois);
-		System.out.println("nous seron au mois de : " + dateBuilder[0][mois]);
+		// annee type
+		ctrlAnneeType = numeroJour % 1095; 
+		if(ctrlAnneeType != 1)
+		{
+			typeAnnee = "Normale";
+		}
+		else 
+		{
+			typeAnnee = "Bisextile";
+		}
+		// fin annee type
 		
-		
-		
-			
+		// recuperation nombre de jour restant (ok)	
 		int modulo = numeroJour % 7;
 		jour = modulo  == 0 ? 7 : modulo;
 		
-		//semaineNum = numeroJour / 7 ; //trouver le numero de la semaine
-		/*jour = numeroJour - semaineNum * 7 ;
+		
+		
+		// reglage bug sur affichage jour (ok)
 		if (jour == 0)
 		{
 			affiche = dateBuilder[1][6];
 		}
+		else if (jour <= 0)
+		{
+			jour = 0;
+			affiche = dateBuilder[1][jour];
+		}
 		else
 		{
 			affiche = dateBuilder[1][jour-1];
-		}*/
-		/*if (jour == 0 )
+		}
+		// fin
+		
+		// reglage bug numsemaine	
+		
+		
+		/*if (numeroJour < 7)
 		{
-			jour = 1;
-		}*/
+			semaineNum = 1;
+		}
+		/*else if ( (numeroJour >= 8) && (numeroJour <= 14) )
+		{
+			semaineNum = 2;
+		}
+		else  
+		{*/
+			//semaineNum = numeroJour / 7;
+			//semaineNum = semaineNum +1 ;						
+		/*}*/
+		
+		
 		
 		//System.out.println("ce sera la semaine : " + semaineNum + " resultat " + semaineNum * 7 + " il reste en jour : " + jour + " le jour de la semaine est : " + affiche  );
-		//System.out.println("ce sera la semaine : " + semaineNum + " resultat " + semaineNum * 7 + " il reste : " + resteNbJour + " le jour de la semaine est : " + dateBuilder[1][jour-1]  );
-		//System.out.println("ce sera le : " + dateBuilder[1][jour-1]  );
-		System.out.println("ce sera un : " + dateBuilder[1][jour] );
-		//System.out.println("le numero de semaine est le : " + semaineNum );
-		
+		//System.out.println("nous seron au mois de : " + dateBuilder[0][mois] + mois);
+		System.out.println("nous seron au mois de : " + dateBuilder[0][mois]);
+		System.out.println("ce sera un : " + affiche );
+		System.out.println("le numero de semaine est le : " + semaineNum );
+		System.out.println(" c'est l'annee : " + annee);
+		System.out.println("c'est une annee : " + typeAnnee +" pour test voir numero annee " + ctrlAnneeType);
 		/*
 		switch(numeroJour)
 		{		
